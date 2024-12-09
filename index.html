@@ -161,30 +161,58 @@
                 advice = "Duy trì cân nặng: Hãy duy trì chế độ ăn và tập luyện hiện tại.";
         }
 
+        // Gợi ý menu ăn uống
+        let menu = "";
+        if (goal.includes("gain")) {
+            menu = `
+                <h3>Gợi ý thực đơn tăng cân:</h3>
+                <p><strong>Bữa sáng:</strong> Bánh mì trứng, bơ, và sữa chua trái cây (500-600 kcal)</p>
+                <p><strong>Bữa trưa:</strong> Cơm, thịt gà, rau cải xào, súp lơ (600-700 kcal)</p>
+                <p><strong>Bữa tối:</strong> Thịt bò nướng, khoai lang, rau củ luộc, tráng miệng trái cây (700-800 kcal)</p>
+            `;
+        } else if (goal.includes("lose")) {
+            menu = `
+                <h3>Gợi ý thực đơn giảm cân:</h3>
+                <p><strong>Bữa sáng:</strong> Bánh mì ngũ cốc nguyên cám, trứng luộc, 1 ly nước cam (300-400 kcal)</p>
+                <p><strong>Bữa trưa:</strong> Salad rau trộn, ức gà nướng, sữa chua không đường (400-500 kcal)</p>
+                <p><strong>Bữa tối:</strong> Cá hấp, khoai tây luộc, bông cải xanh, tráng miệng dưa hấu (500-600 kcal)</p>
+            `;
+        } else {
+            menu = `
+                <h3>Gợi ý thực đơn duy trì cân nặng:</h3>
+                <p><strong>Bữa sáng:</strong> Trứng chiên, bánh mì ngũ cốc, nước ép trái cây (400-500 kcal)</p>
+                <p><strong>Bữa trưa:</strong> Cơm, thịt gà, rau cải xào, tráng miệng trái cây (500-600 kcal)</p>
+                <p><strong>Bữa tối:</strong> Cá nướng, rau củ hấp, khoai lang, sữa chua (600-700 kcal)</p>
+            `;
+        }
+
         // Tư vấn sức khỏe
         let healthAdvice = "";
         let link = "";
 
         if (bmi < 18.5) {
-            healthAdvice = "Bạn đang ở tình trạng thiếu cân. Hãy ăn uống đầy đủ và tập luyện thường xuyên.";
-            link = "<a href='thieu-can.html' class='link'>Tư vấn tập luyện cho người thiếu cân</a>";
-        } else if (bmi >= 18.5 && bmi < 24.9) {
-            healthAdvice = "Bạn có sức khỏe tốt. Hãy duy trì chế độ ăn uống và luyện tập hiện tại.";
-            link = "<a href='suc-khoe-tot.html' class='link'>Tư vấn tập luyện cho người có sức khỏe tốt</a>";
-        } else if (bmi >= 25 && bmi < 29.9) {
-            healthAdvice = "Bạn đang ở tình trạng thừa cân. Hãy tăng cường tập luyện và kiểm soát chế độ ăn uống.";
-            link = "<a href='thua-can.html' class='link'>Tư vấn tập luyện cho người thừa cân</a>";
+            healthAdvice = "Bạn đang dưới cân. Hãy tập trung vào việc tăng cân lành mạnh bằng cách bổ sung thực phẩm giàu dinh dưỡng.";
+            link = '<a class="link" href="https://www.healthline.com/nutrition/how-to-gain-weight" target="_blank">Xem thêm cách tăng cân an toàn</a>';
+        } else if (bmi < 24.9) {
+            healthAdvice = "Bạn có cân nặng bình thường. Hãy duy trì chế độ ăn uống và vận động hợp lý để giữ vững sức khỏe.";
+            link = '<a class="link" href="https://www.healthline.com/nutrition/healthy-eating-tips" target="_blank">Xem thêm cách duy trì cân nặng lành mạnh</a>';
+        } else if (bmi < 29.9) {
+            healthAdvice = "Bạn đang thừa cân. Hãy điều chỉnh chế độ ăn và tăng cường vận động để giảm cân.";
+            link = '<a class="link" href="https://www.healthline.com/nutrition/how-to-lose-weight" target="_blank">Xem thêm cách giảm cân an toàn</a>';
         } else {
-            healthAdvice = "Bạn đang ở tình trạng béo phì. Cần có chế độ ăn uống và luyện tập khoa học để giảm cân.";
-            link = "<a href='beo-phi.html' class='link'>Tư vấn tập luyện cho người béo phì</a>";
+            healthAdvice = "Bạn bị béo phì. Hãy tìm kiếm sự tư vấn từ bác sĩ để có chế độ giảm cân phù hợp.";
+            link = '<a class="link" href="https://www.healthline.com/nutrition/obesity-weight-loss-guide" target="_blank">Xem thêm hướng dẫn giảm cân</a>';
         }
 
         result.innerHTML = `
-            <p>Chỉ số BMI của bạn là: <strong>${bmi}</strong></p>
+            <h2>Kết quả:</h2>
+            <p><strong>BMI:</strong> ${bmi}</p>
+            <p><strong>Nhu cầu calo hàng ngày:</strong> ${calorieNeeds} kcal</p>
+            <p><strong>Mục tiêu calo hàng ngày:</strong> ${adjustedCalories} kcal</p>
+            <p><strong>Lời khuyên:</strong> ${advice}</p>
             <p>${healthAdvice}</p>
-            <p>Nhu cầu calo hàng ngày (duy trì cân nặng): <strong>${calorieNeeds} kcal</strong></p>
-            <p>${advice} Lượng calo cần: <strong>${adjustedCalories} kcal</strong></p>
             ${link}
+            ${menu}
         `;
     }
 </script>
