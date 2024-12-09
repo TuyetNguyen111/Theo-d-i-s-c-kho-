@@ -191,17 +191,17 @@
         let link = "";
 
         if (bmi < 18.5) {
-            healthAdvice = "Bạn đang dưới cân. Hãy tập trung vào việc tăng cân lành mạnh bằng cách bổ sung thực phẩm giàu dinh dưỡng.";
-            link = '<a class="link" href="https://www.healthline.com/nutrition/how-to-gain-weight" target="_blank">Xem thêm cách tăng cân an toàn</a>';
+            healthAdvice = "Bạn đang thiếu cân. Hãy tập trung vào việc tăng cân lành mạnh bằng cách bổ sung thực phẩm giàu dinh dưỡng.";
+            link = '<a class="link" href="thieu-can.html" target="_blank">Xem thêm cách tăng cân an toàn</a>';
         } else if (bmi < 24.9) {
             healthAdvice = "Bạn có cân nặng bình thường. Hãy duy trì chế độ ăn uống và vận động hợp lý để giữ vững sức khỏe.";
-            link = '<a class="link" href="https://www.healthline.com/nutrition/healthy-eating-tips" target="_blank">Xem thêm cách duy trì cân nặng lành mạnh</a>';
+            link = '<a class="link" href="suc-khoe-tot.html" target="_blank">Xem thêm cách duy trì cân nặng lành mạnh</a>';
         } else if (bmi < 29.9) {
             healthAdvice = "Bạn đang thừa cân. Hãy điều chỉnh chế độ ăn và tăng cường vận động để giảm cân.";
-            link = '<a class="link" href="https://www.healthline.com/nutrition/how-to-lose-weight" target="_blank">Xem thêm cách giảm cân an toàn</a>';
+            link = '<a class="link" href="thua-can.html" target="_blank">Xem thêm cách giảm cân an toàn</a>';
         } else {
             healthAdvice = "Bạn bị béo phì. Hãy tìm kiếm sự tư vấn từ bác sĩ để có chế độ giảm cân phù hợp.";
-            link = '<a class="link" href="https://www.healthline.com/nutrition/obesity-weight-loss-guide" target="_blank">Xem thêm hướng dẫn giảm cân</a>';
+            link = '<a class="link" href="beo-phi.html" target="_blank">Xem thêm hướng dẫn giảm cân</a>';
         }
 
         result.innerHTML = `
