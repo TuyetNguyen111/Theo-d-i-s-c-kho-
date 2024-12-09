@@ -95,6 +95,15 @@
         <option value="1.9">Vận động rất nhiều (tập thể thao chuyên nghiệp)</option>
     </select>
     
+    <label for="goal">Mục tiêu:</label>
+    <select id="goal">
+        <option value="maintain">Duy trì cân nặng</option>
+        <option value="gain-light">Tăng cân nhẹ</option>
+        <option value="gain-high">Tăng cân nhiều</option>
+        <option value="lose-light">Giảm cân nhẹ</option>
+        <option value="lose-high">Giảm cân nhiều</option>
+    </select>
+    
     <button onclick="calculateHealth()">Xem tư vấn sức khỏe</button>
     
     <div id="result" class="result"></div>
@@ -107,9 +116,10 @@
         const height = document.getElementById('height').value;
         const weight = document.getElementById('weight').value;
         const activity = document.getElementById('activity').value;
+        const goal = document.getElementById('goal').value;
         const result = document.getElementById('result');
         
-        if (age === "" || height === "" || weight === "" || gender === "" || activity === "") {
+        if (age === "" || height === "" || weight === "" || gender === "" || activity === "" || goal === "") {
             result.textContent = "Vui lòng nhập đầy đủ thông tin!";
             return;
         }
@@ -126,28 +136,54 @@
         }
         const calorieNeeds = (bmr * activity).toFixed(0);
 
+        // Tính nhu cầu calo dựa trên mục tiêu
+        let adjustedCalories;
+        let advice;
+        switch (goal) {
+            case "gain-light":
+                adjustedCalories = (calorieNeeds * 1.1).toFixed(0);
+                advice = "Tăng cân nhẹ: Hãy tăng lượng calo của bạn lên một chút.";
+                break;
+            case "gain-high":
+                adjustedCalories = (calorieNeeds * 1.2).toFixed(0);
+                advice = "Tăng cân nhiều: Hãy tăng đáng kể lượng calo và kết hợp tập luyện.";
+                break;
+            case "lose-light":
+                adjustedCalories = (calorieNeeds * 0.9).toFixed(0);
+                advice = "Giảm cân nhẹ: Hãy giảm nhẹ lượng calo và tập thể dục điều độ.";
+                break;
+            case "lose-high":
+                adjustedCalories = (calorieNeeds * 0.8).toFixed(0);
+                advice = "Giảm cân nhiều: Hãy cắt giảm nhiều lượng calo và tập luyện chăm chỉ.";
+                break;
+            default:
+                adjustedCalories = calorieNeeds;
+                advice = "Duy trì cân nặng: Hãy duy trì chế độ ăn và tập luyện hiện tại.";
+        }
+
         // Tư vấn sức khỏe
-        let advice = "";
+        let healthAdvice = "";
         let link = "";
 
         if (bmi < 18.5) {
-            advice = "Bạn đang ở tình trạng thiếu cân. Hãy ăn uống đầy đủ và tập luyện thường xuyên.";
+            healthAdvice = "Bạn đang ở tình trạng thiếu cân. Hãy ăn uống đầy đủ và tập luyện thường xuyên.";
             link = "<a href='thieu-can.html' class='link'>Tư vấn tập luyện cho người thiếu cân</a>";
         } else if (bmi >= 18.5 && bmi < 24.9) {
-            advice = "Bạn có sức khỏe tốt. Hãy duy trì chế độ ăn uống và luyện tập hiện tại.";
+            healthAdvice = "Bạn có sức khỏe tốt. Hãy duy trì chế độ ăn uống và luyện tập hiện tại.";
             link = "<a href='suc-khoe-tot.html' class='link'>Tư vấn tập luyện cho người có sức khỏe tốt</a>";
         } else if (bmi >= 25 && bmi < 29.9) {
-            advice = "Bạn đang ở tình trạng thừa cân. Hãy tăng cường tập luyện và kiểm soát chế độ ăn uống.";
+            healthAdvice = "Bạn đang ở tình trạng thừa cân. Hãy tăng cường tập luyện và kiểm soát chế độ ăn uống.";
             link = "<a href='thua-can.html' class='link'>Tư vấn tập luyện cho người thừa cân</a>";
         } else {
-            advice = "Bạn đang ở tình trạng béo phì. Cần có chế độ ăn uống và luyện tập khoa học để giảm cân.";
+            healthAdvice = "Bạn đang ở tình trạng béo phì. Cần có chế độ ăn uống và luyện tập khoa học để giảm cân.";
             link = "<a href='beo-phi.html' class='link'>Tư vấn tập luyện cho người béo phì</a>";
         }
 
         result.innerHTML = `
             <p>Chỉ số BMI của bạn là: <strong>${bmi}</strong></p>
-            <p>${advice}</p>
-            <p>Nhu cầu calo mỗi ngày của bạn là: <strong>${calorieNeeds} kcal</strong></p>
+            <p>${healthAdvice}</p>
+            <p>Nhu cầu calo hàng ngày (duy trì cân nặng): <strong>${calorieNeeds} kcal</strong></p>
+            <p>${advice} Lượng calo cần: <strong>${adjustedCalories} kcal</strong></p>
             ${link}
         `;
     }
